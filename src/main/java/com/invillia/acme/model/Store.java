@@ -2,16 +2,16 @@ package com.invillia.acme.model;
 
 public class Store {
 
-	private int id;
+	private Integer id;
 	private String name;
 	private String code;
 	private String address;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	
