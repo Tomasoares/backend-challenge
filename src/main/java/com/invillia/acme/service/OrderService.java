@@ -1,5 +1,8 @@
 package com.invillia.acme.service;
 
-public interface OrderService {
+import org.springframework.stereotype.Service;
 
+@Service
+public interface OrderService {
+	
 }
