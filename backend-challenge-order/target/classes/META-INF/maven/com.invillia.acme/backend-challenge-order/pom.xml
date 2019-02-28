@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.invillia.acme</groupId>
-	<artifactId>backend-challenge-store</artifactId>
+	<artifactId>backend-challenge-order</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>backend-challenge-store</name>
-	<description>Microservice resposible for managing operations related to Stores</description>
+	<name>backend-challenge-order</name>
+	<description>Microservice resposible for managing operations related to Orders and items</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -105,7 +105,7 @@
 			                    	<inputSchema>
 			                    		${db.schema}
 			                    	</inputSchema>
-			                    	<includes>
+									<includes>
 			                    		${db.tables}
 			                    	</includes>
 			                    </database>

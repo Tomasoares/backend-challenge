@@ -2,12 +2,14 @@ package com.invillia.acme.model;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum PaymentStatus {
 
 	PROCESSING(1),
 	CONCLUDED(2),
 	REFUSED(3),
-	CANCELED(4);
+	CANCELLED(4);
 	
 	private int id;
 
@@ -17,6 +19,11 @@ public enum PaymentStatus {
 
 	public Integer getId() {
 		return this.id;
+	}
+	
+	@JsonValue
+	public String getPaymentStatus() {
+		return this.name();
 	}
 	
 	public static PaymentStatus findById(int id) {

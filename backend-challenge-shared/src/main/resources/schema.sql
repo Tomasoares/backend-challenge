@@ -20,16 +20,11 @@ CREATE TABLE acme.order (
 	FOREIGN KEY fk_order_store(id_store) references acme.store(id)
 )
 
-CREATE TABLE acme.order_item_status (
-	id			INT PRIMARY KEY,
-	name		VARCHAR(50)
-)
-
 CREATE TABLE acme.order_item (
 	id						INT AUTO_INCREMENT PRIMARY KEY,
 	unitPrice				DECIMAL(10,2),
 	quantity				INT,
-	id_order_item_status	INT,
+	refunded 				bit
 	id_order				INT,
 	FOREIGN KEY fk_order_item_order_item_status(id_order_item_status) references acme.order_item_status (id),
 	FOREIGN KEY fk_order_item_order(id_order) references acme.store (id)
@@ -52,5 +47,5 @@ insert into acme.payment_status values
 (1, "PROCESSING"),
 (2, "CONCLUDED"),
 (3, "REFUSED"),
-(4, "CANCELED");
+(4, "CANCELLED");
 

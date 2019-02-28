@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: backend-challenge-order
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Tomás
+Implementation-Vendor-Id: com.invillia.acme
+Build-Jdk: 1.8.0_151
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/backend-challenge-order
+Created-By: Maven Integration for Eclipse
+
