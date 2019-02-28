@@ -41,10 +41,16 @@ CREATE TABLE acme.payment_status (
 )
 
 CREATE TABLE acme.payment (
-	id						INT PRIMARY KEY,
+	id						INT AUTO_INCREMENT PRIMARY KEY,
 	credit_card				VARCHAR(50),
 	payment_date			DATETIME,
 	id_payment_status		INT,
 	FOREIGN KEY  fk_payment_payment_status (id_payment_status) references acme.payment (id)
 )
+
+insert into acme.payment_status values
+(1, "PROCESSING"),
+(2, "CONCLUDED"),
+(3, "REFUSED"),
+(4, "CANCELED");
 

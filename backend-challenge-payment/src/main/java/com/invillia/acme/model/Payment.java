@@ -23,6 +23,14 @@ public class Payment {
 		this.orderId = orderId;
 	}
 	
+	public Payment(String creditCard, Date paymentDate, PaymentStatus status, Integer orderId) {
+		super();
+		this.creditCard = creditCard;
+		this.paymentDate = paymentDate;
+		this.status = status;
+		this.orderId = orderId;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

@@ -12,6 +12,7 @@ import com.invillia.acme.jooq.tables.records.PaymentStatusRecord;
 import javax.annotation.Generated;
 
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.UniqueKey;
 import org.jooq.impl.Internal;
 
@@ -34,6 +35,7 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
+    public static final Identity<PaymentRecord, Integer> IDENTITY_PAYMENT = Identities0.IDENTITY_PAYMENT;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
@@ -51,6 +53,10 @@ public class Keys {
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
+
+    private static class Identities0 {
+        public static Identity<PaymentRecord, Integer> IDENTITY_PAYMENT = Internal.createIdentity(Payment.PAYMENT, Payment.PAYMENT.ID);
+    }
 
     private static class UniqueKeys0 {
         public static final UniqueKey<PaymentRecord> KEY_PAYMENT_PRIMARY = Internal.createUniqueKey(Payment.PAYMENT, "KEY_payment_PRIMARY", Payment.PAYMENT.ID);

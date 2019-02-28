@@ -5,12 +5,14 @@ import static com.invillia.acme.jooq.tables.Payment.PAYMENT;
 import org.jooq.DSLContext;
 import org.jooq.Record1;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.invillia.acme.jooq.tables.records.PaymentRecord;
 import com.invillia.acme.model.Payment;
 import com.invillia.acme.model.PaymentStatus;
 import com.invillia.acme.service.PaymentService;
 
+@Service
 public class PaymentServiceImpl implements PaymentService {
 
 	@Autowired
@@ -25,7 +27,7 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		rec.attach(this.jooq.configuration());
 		rec.store();
-		
+
 		payment.setId(rec.getId());
 	}
 
@@ -53,7 +55,8 @@ public class PaymentServiceImpl implements PaymentService {
 		.set
 			(PAYMENT.ID_PAYMENT_STATUS, status.getId())
 		.where
-			(PAYMENT.ID.eq(idPayment));
+			(PAYMENT.ID.eq(idPayment))
+		.execute();
 		//@formatter:on
 		
 	}

@@ -17,6 +17,7 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -41,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Payment extends TableImpl<PaymentRecord> {
 
-    private static final long serialVersionUID = 1591835156;
+    private static final long serialVersionUID = 936761712;
 
     /**
      * The reference instance of <code>acme.payment</code>
@@ -59,7 +60,7 @@ public class Payment extends TableImpl<PaymentRecord> {
     /**
      * The column <code>acme.payment.id</code>.
      */
-    public final TableField<PaymentRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<PaymentRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>acme.payment.credit_card</code>.
@@ -67,14 +68,14 @@ public class Payment extends TableImpl<PaymentRecord> {
     public final TableField<PaymentRecord, String> CREDIT_CARD = createField("credit_card", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>acme.payment.id_payment_status</code>.
-     */
-    public final TableField<PaymentRecord, Integer> ID_PAYMENT_STATUS = createField("id_payment_status", org.jooq.impl.SQLDataType.INTEGER, this, "");
-
-    /**
      * The column <code>acme.payment.payment_date</code>.
      */
     public final TableField<PaymentRecord, Timestamp> PAYMENT_DATE = createField("payment_date", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+
+    /**
+     * The column <code>acme.payment.id_payment_status</code>.
+     */
+    public final TableField<PaymentRecord, Integer> ID_PAYMENT_STATUS = createField("id_payment_status", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * Create a <code>acme.payment</code> table reference
@@ -123,6 +124,14 @@ public class Payment extends TableImpl<PaymentRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.PAYMENT_FK_PAYMENT_PAYMENT_STATUS, Indexes.PAYMENT_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Identity<PaymentRecord, Integer> getIdentity() {
+        return Keys.IDENTITY_PAYMENT;
     }
 
     /**
