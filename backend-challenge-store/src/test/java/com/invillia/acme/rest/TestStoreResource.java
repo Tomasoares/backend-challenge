@@ -30,10 +30,10 @@ import com.invillia.acme.service.StoreService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
-public class TestRestApi {
+public class TestStoreResource {
 	
 	@Autowired
-	private TestRestTemplate restTemplate = new TestRestTemplate();
+	private TestRestTemplate restTemplate;
 	
 	@MockBean
 	private StoreService storeService;

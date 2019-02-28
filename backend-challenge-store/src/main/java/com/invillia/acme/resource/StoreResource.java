@@ -24,7 +24,7 @@ import com.invillia.acme.service.StoreService;
 public class StoreResource {
 	
 	@Autowired
-	StoreService service;
+	private StoreService service;
 	
 	private static final String storeCode = "storeCode";
 

@@ -12,14 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jooq.AutoConfigureJooq;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.invillia.acme.model.Payment;
 import com.invillia.acme.model.PaymentStatus;
-import com.invillia.acme.service.PaymentService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest()
 @AutoConfigureJooq
+@Transactional 
 public class TestPaymentService {
 
 	@Autowired
@@ -33,7 +34,7 @@ public class TestPaymentService {
 		Payment payment = new Payment("237468237", new Date(), PaymentStatus.PROCESSING, 1);
 		service.create(payment);
 		
-		assertNotNull(payment.getId());
+		assertNotNull("Inserted a payment with .create(payment) method", payment.getId());
 	}
 	
 	@Test
@@ -42,7 +43,7 @@ public class TestPaymentService {
 		service.create(payment);
 		
 		PaymentStatus paymentStatus = service.getPaymentStatus(payment.getId());
-		assertEquals(payment.getStatus(), paymentStatus);
+		assertEquals("Looked up for paymentStatus with .getPaymentStatus(id) method", payment.getStatus(), paymentStatus);
 	}
 	
 	@Test
@@ -53,7 +54,7 @@ public class TestPaymentService {
 		service.updatePaymentStatus(payment.getId(), PaymentStatus.CONCLUDED);
 		PaymentStatus paymentStatus = service.getPaymentStatus(payment.getId());
 		
-		assertEquals(PaymentStatus.CONCLUDED, paymentStatus);
+		assertEquals("update paymentStatus with .updatePaymentStatus(id, status) method", PaymentStatus.CONCLUDED, paymentStatus);
 	}
 	
 }
