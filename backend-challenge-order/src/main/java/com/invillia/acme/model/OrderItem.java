@@ -3,25 +3,26 @@ package com.invillia.acme.model;
 public class OrderItem {
 
 	private Integer id;
-	private String product;
+	private String description;
 	private Integer quantity;
 	private Double unitPrice;
+	private Boolean refunded;
 	
 	public OrderItem() {
 		
 	}
 
-	public OrderItem(String product, Integer quantity, Double unitPrice) {
+	public OrderItem(String description, Integer quantity, Double unitPrice) {
 		super();
-		this.product = product;
+		this.description = description;
 		this.quantity = quantity;
 		this.unitPrice = unitPrice;
 	}
 
-	public OrderItem(Integer id, String product, Integer quantity, Double unitPrice) {
+	public OrderItem(Integer id, String description, Integer quantity, Double unitPrice) {
 		super();
 		this.id = id;
-		this.product = product;
+		this.description = description;
 		this.quantity = quantity;
 		this.unitPrice = unitPrice;
 	}
@@ -34,12 +35,12 @@ public class OrderItem {
 		this.id = id;
 	}
 
-	public String getProduct() {
-		return product;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setProduct(String product) {
-		this.product = product;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Integer getQuantity() {
@@ -56,5 +57,13 @@ public class OrderItem {
 
 	public void setUnitPrice(Double unitPrice) {
 		this.unitPrice = unitPrice;
+	}
+
+	public Boolean getRefunded() {
+		return refunded;
+	}
+
+	public void setRefunded(Boolean refunded) {
+		this.refunded = refunded;
 	}
 }

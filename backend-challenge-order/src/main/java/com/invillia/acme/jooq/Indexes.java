@@ -36,7 +36,6 @@ public class Indexes {
     public static final Index ORDER_FK_ORDER_STORE = Indexes0.ORDER_FK_ORDER_STORE;
     public static final Index ORDER_PRIMARY = Indexes0.ORDER_PRIMARY;
     public static final Index ORDER_ITEM_FK_ORDER_ITEM_ORDER = Indexes0.ORDER_ITEM_FK_ORDER_ITEM_ORDER;
-    public static final Index ORDER_ITEM_FK_ORDER_ITEM_ORDER_ITEM_STATUS = Indexes0.ORDER_ITEM_FK_ORDER_ITEM_ORDER_ITEM_STATUS;
     public static final Index ORDER_ITEM_PRIMARY = Indexes0.ORDER_ITEM_PRIMARY;
     public static final Index ORDER_STATUS_PRIMARY = Indexes0.ORDER_STATUS_PRIMARY;
 
@@ -49,7 +48,6 @@ public class Indexes {
         public static Index ORDER_FK_ORDER_STORE = Internal.createIndex("fk_order_store", Order.ORDER, new OrderField[] { Order.ORDER.ID_STORE }, false);
         public static Index ORDER_PRIMARY = Internal.createIndex("PRIMARY", Order.ORDER, new OrderField[] { Order.ORDER.ID }, true);
         public static Index ORDER_ITEM_FK_ORDER_ITEM_ORDER = Internal.createIndex("fk_order_item_order", OrderItem.ORDER_ITEM, new OrderField[] { OrderItem.ORDER_ITEM.ID_ORDER }, false);
-        public static Index ORDER_ITEM_FK_ORDER_ITEM_ORDER_ITEM_STATUS = Internal.createIndex("fk_order_item_order_item_status", OrderItem.ORDER_ITEM, new OrderField[] { OrderItem.ORDER_ITEM.ID_ORDER_ITEM_STATUS }, false);
         public static Index ORDER_ITEM_PRIMARY = Internal.createIndex("PRIMARY", OrderItem.ORDER_ITEM, new OrderField[] { OrderItem.ORDER_ITEM.ID }, true);
         public static Index ORDER_STATUS_PRIMARY = Internal.createIndex("PRIMARY", OrderStatus.ORDER_STATUS, new OrderField[] { OrderStatus.ORDER_STATUS.ID }, true);
     }

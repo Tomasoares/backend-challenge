@@ -42,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class OrderItem extends TableImpl<OrderItemRecord> {
 
-    private static final long serialVersionUID = 87860041;
+    private static final long serialVersionUID = 934108481;
 
     /**
      * The reference instance of <code>acme.order_item</code>
@@ -73,11 +73,6 @@ public class OrderItem extends TableImpl<OrderItemRecord> {
     public final TableField<OrderItemRecord, Integer> QUANTITY = createField("quantity", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
-     * The column <code>acme.order_item.id_order_item_status</code>.
-     */
-    public final TableField<OrderItemRecord, Integer> ID_ORDER_ITEM_STATUS = createField("id_order_item_status", org.jooq.impl.SQLDataType.INTEGER, this, "");
-
-    /**
      * The column <code>acme.order_item.id_order</code>.
      */
     public final TableField<OrderItemRecord, Integer> ID_ORDER = createField("id_order", org.jooq.impl.SQLDataType.INTEGER, this, "");
@@ -86,6 +81,11 @@ public class OrderItem extends TableImpl<OrderItemRecord> {
      * The column <code>acme.order_item.refunded</code>.
      */
     public final TableField<OrderItemRecord, Boolean> REFUNDED = createField("refunded", org.jooq.impl.SQLDataType.BIT, this, "");
+
+    /**
+     * The column <code>acme.order_item.description</code>.
+     */
+    public final TableField<OrderItemRecord, String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
      * Create a <code>acme.order_item</code> table reference
@@ -133,7 +133,7 @@ public class OrderItem extends TableImpl<OrderItemRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.ORDER_ITEM_FK_ORDER_ITEM_ORDER, Indexes.ORDER_ITEM_FK_ORDER_ITEM_ORDER_ITEM_STATUS, Indexes.ORDER_ITEM_PRIMARY);
+        return Arrays.<Index>asList(Indexes.ORDER_ITEM_FK_ORDER_ITEM_ORDER, Indexes.ORDER_ITEM_PRIMARY);
     }
 
     /**

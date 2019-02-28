@@ -8,30 +8,33 @@ public class Order {
 	
 	private Integer id;
 	private Integer storeId;
-	private Date creationDate;
+	private Date confirmationDate;
 	private String address;
+	private OrderStatus status;
+	
 	private List<OrderItem> orderItems = new ArrayList<>();
 	
 	public Order() {
 		
 	}
 	
-	public Order(Integer id, Integer storeId, Date creationDate, String address, List<OrderItem> orderItems) {
+	public Order(Integer id, Integer storeId, Date creationDate, String address, List<OrderItem> orderItems, OrderStatus status) {
 		super();
 		this.id = id;
 		this.storeId = storeId;
-		this.creationDate = creationDate;
+		this.confirmationDate = creationDate;
 		this.address = address;
 		this.orderItems = orderItems;
+		this.status = status;
 	}
 	
-	public Order(Integer storeId, Date creationDate, String address, List<OrderItem> orderItems) {
+	public Order(Integer storeId, Date creationDate, String address, List<OrderItem> orderItems, OrderStatus status) {
 		super();
-		this.id = id;
 		this.storeId = storeId;
-		this.creationDate = creationDate;
+		this.confirmationDate = creationDate;
 		this.address = address;
 		this.orderItems = orderItems;
+		this.status = status;
 	}
 
 	public Integer getId() {
@@ -42,12 +45,12 @@ public class Order {
 		this.id = id;
 	}
 
-	public Date getCreationDate() {
-		return creationDate;
+	public Date getConfirmationDate() {
+		return confirmationDate;
 	}
 
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
+	public void setConfirmationDate(Date confirmationDate) {
+		this.confirmationDate = confirmationDate;
 	}
 
 	public String getAddress() {
@@ -74,4 +77,11 @@ public class Order {
 		return this.storeId;
 	}
 
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
+	}
 }

@@ -9,7 +9,7 @@ import com.invillia.acme.jooq.Indexes;
 import com.invillia.acme.jooq.Keys;
 import com.invillia.acme.jooq.tables.records.OrderRecord;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Order extends TableImpl<OrderRecord> {
 
-    private static final long serialVersionUID = -1213915520;
+    private static final long serialVersionUID = 1306664253;
 
     /**
      * The reference instance of <code>acme.order</code>
@@ -68,11 +68,6 @@ public class Order extends TableImpl<OrderRecord> {
     public final TableField<OrderRecord, String> ADDRESS = createField("address", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>acme.order.confirmationDate</code>.
-     */
-    public final TableField<OrderRecord, Timestamp> CONFIRMATIONDATE = createField("confirmationDate", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
-
-    /**
      * The column <code>acme.order.id_order_status</code>.
      */
     public final TableField<OrderRecord, Integer> ID_ORDER_STATUS = createField("id_order_status", org.jooq.impl.SQLDataType.INTEGER, this, "");
@@ -81,6 +76,11 @@ public class Order extends TableImpl<OrderRecord> {
      * The column <code>acme.order.id_store</code>.
      */
     public final TableField<OrderRecord, Integer> ID_STORE = createField("id_store", org.jooq.impl.SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>acme.order.confirmation_date</code>.
+     */
+    public final TableField<OrderRecord, Date> CONFIRMATION_DATE = createField("confirmation_date", org.jooq.impl.SQLDataType.DATE, this, "");
 
     /**
      * Create a <code>acme.order</code> table reference

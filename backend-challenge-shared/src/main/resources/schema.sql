@@ -13,7 +13,7 @@ CREATE TABLE acme.order_status (
 CREATE TABLE acme.order (
 	id						INT AUTO_INCREMENT PRIMARY KEY,
 	address					VARCHAR(50),
-	confirmationDate		DATETIME,
+	confirmation_date 		date,
 	id_order_status			INT,
 	id_store				INT,
 	FOREIGN KEY fk_order_order_status(id_order_status) references acme.order_status(id),
@@ -24,8 +24,9 @@ CREATE TABLE acme.order_item (
 	id						INT AUTO_INCREMENT PRIMARY KEY,
 	unitPrice				DECIMAL(10,2),
 	quantity				INT,
-	refunded 				bit
+	refunded 				BIT,
 	id_order				INT,
+	description 			VARCHAR(50),
 	FOREIGN KEY fk_order_item_order_item_status(id_order_item_status) references acme.order_item_status (id),
 	FOREIGN KEY fk_order_item_order(id_order) references acme.store (id)
 )
