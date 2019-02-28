@@ -3,6 +3,8 @@ package com.invillia.acme.resources;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.invillia.acme.model.Store;
+import com.invillia.acme.model.StorePage;
 import com.invillia.acme.service.StoreService;
 import com.invillia.acme.service.StoreService.Parameters;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/stores")
 public class StoreResource {
 	
 	@Autowired
@@ -25,9 +28,15 @@ public class StoreResource {
 	
 	private static final String storeCode = "storeCode";
 
-	@GetMapping("/{storeCode}")
-	public Store findStore(@PathVariable("storeCode") String storeCode) {
-		return this.service.find(storeCode);
+	@GetMapping("/{"+storeCode+"}")
+	public ResponseEntity<Store> findStore(@PathVariable(storeCode) String storeCode) {
+		Store find = this.service.find(storeCode);
+		
+		if (find == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).body(find);
 	}
 	
 	@PostMapping
@@ -36,15 +45,15 @@ public class StoreResource {
 		return store;
 	}
 	
-	@PutMapping("/{storeCode}")
-	public Store update(@RequestBody Store store, @PathVariable("storeCode") String code) {
+	@PutMapping("/{"+storeCode+"}")
+	public Store update(@RequestBody Store store, @PathVariable(storeCode) String code) {
 		store.setCode(code);
 		this.service.update(store);
 		return store;
 	}
 	
 	@GetMapping
-	public List<Store> getAll(@RequestParam(required = false) String address, 
+	public ResponseEntity<StorePage> getAll(@RequestParam(required = false) String address, 
 							  @RequestParam(required = false) String code,
 							  @RequestParam(required = false) String name) {
 		
@@ -53,7 +62,13 @@ public class StoreResource {
 		parameters.code = code;
 		parameters.name = name;
 		
-		return this.service.getAll(parameters);
+		List<Store> stores = this.service.getAll(parameters);
+		
+		if (stores.size() == 0) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).body(new StorePage(stores));
 		
 	}
 }

@@ -7,6 +7,18 @@ public class Store {
 	private String code;
 	private String address;
 	
+	public Store() {
+		
+	}
+	
+	public Store(Integer id, String name, String code, String address) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.code = code;
+		this.address = address;
+	}
+
 	public Integer getId() {
 		return id;
 	}
