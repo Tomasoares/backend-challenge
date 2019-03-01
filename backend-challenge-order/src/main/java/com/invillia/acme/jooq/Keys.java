@@ -53,6 +53,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final ForeignKey<OrderRecord, OrderStatusRecord> ORDER_IBFK_1 = ForeignKeys0.ORDER_IBFK_1;
+    public static final ForeignKey<OrderItemRecord, OrderRecord> ORDER_ITEM_IBFK_1 = ForeignKeys0.ORDER_ITEM_IBFK_1;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -71,5 +72,6 @@ public class Keys {
 
     private static class ForeignKeys0 {
         public static final ForeignKey<OrderRecord, OrderStatusRecord> ORDER_IBFK_1 = Internal.createForeignKey(com.invillia.acme.jooq.Keys.KEY_ORDER_STATUS_PRIMARY, Order.ORDER, "order_ibfk_1", Order.ORDER.ID_ORDER_STATUS);
+        public static final ForeignKey<OrderItemRecord, OrderRecord> ORDER_ITEM_IBFK_1 = Internal.createForeignKey(com.invillia.acme.jooq.Keys.KEY_ORDER_PRIMARY, OrderItem.ORDER_ITEM, "order_item_ibfk_1", OrderItem.ORDER_ITEM.ID_ORDER);
     }
 }

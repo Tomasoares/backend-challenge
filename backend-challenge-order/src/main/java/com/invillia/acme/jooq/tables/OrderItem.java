@@ -42,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class OrderItem extends TableImpl<OrderItemRecord> {
 
-    private static final long serialVersionUID = 934108481;
+    private static final long serialVersionUID = -57972158;
 
     /**
      * The reference instance of <code>acme.order_item</code>
@@ -73,14 +73,14 @@ public class OrderItem extends TableImpl<OrderItemRecord> {
     public final TableField<OrderItemRecord, Integer> QUANTITY = createField("quantity", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
-     * The column <code>acme.order_item.id_order</code>.
-     */
-    public final TableField<OrderItemRecord, Integer> ID_ORDER = createField("id_order", org.jooq.impl.SQLDataType.INTEGER, this, "");
-
-    /**
      * The column <code>acme.order_item.refunded</code>.
      */
     public final TableField<OrderItemRecord, Boolean> REFUNDED = createField("refunded", org.jooq.impl.SQLDataType.BIT, this, "");
+
+    /**
+     * The column <code>acme.order_item.id_order</code>.
+     */
+    public final TableField<OrderItemRecord, Integer> ID_ORDER = createField("id_order", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>acme.order_item.description</code>.
@@ -158,6 +158,18 @@ public class OrderItem extends TableImpl<OrderItemRecord> {
     @Override
     public List<UniqueKey<OrderItemRecord>> getKeys() {
         return Arrays.<UniqueKey<OrderItemRecord>>asList(Keys.KEY_ORDER_ITEM_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<OrderItemRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<OrderItemRecord, ?>>asList(Keys.ORDER_ITEM_IBFK_1);
+    }
+
+    public Order order() {
+        return new Order(this, Keys.ORDER_ITEM_IBFK_1);
     }
 
     /**

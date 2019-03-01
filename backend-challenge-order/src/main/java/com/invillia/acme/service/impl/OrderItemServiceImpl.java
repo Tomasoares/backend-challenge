@@ -39,6 +39,8 @@ public class OrderItemServiceImpl implements OrderItemService {
 		rec.setRefunded(Boolean.TRUE.equals(item.getRefunded()));
 		
 		rec.attach(this.jooq.configuration());
+		rec.store();
+		
 		item.setId(rec.getId());
 	}
 

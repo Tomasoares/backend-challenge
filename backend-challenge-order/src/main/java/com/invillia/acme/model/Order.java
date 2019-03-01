@@ -73,7 +73,7 @@ public class Order {
 		this.storeId = storeId;
 	}
 
-	public Object getStoreId() {
+	public Integer getStoreId() {
 		return this.storeId;
 	}
 

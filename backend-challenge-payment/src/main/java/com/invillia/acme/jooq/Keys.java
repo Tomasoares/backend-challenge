@@ -48,7 +48,7 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final ForeignKey<PaymentRecord, PaymentRecord> PAYMENT_IBFK_1 = ForeignKeys0.PAYMENT_IBFK_1;
+    public static final ForeignKey<PaymentRecord, PaymentStatusRecord> PAYMENT_IBFK_1 = ForeignKeys0.PAYMENT_IBFK_1;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -64,6 +64,6 @@ public class Keys {
     }
 
     private static class ForeignKeys0 {
-        public static final ForeignKey<PaymentRecord, PaymentRecord> PAYMENT_IBFK_1 = Internal.createForeignKey(com.invillia.acme.jooq.Keys.KEY_PAYMENT_PRIMARY, Payment.PAYMENT, "payment_ibfk_1", Payment.PAYMENT.ID_PAYMENT_STATUS);
+        public static final ForeignKey<PaymentRecord, PaymentStatusRecord> PAYMENT_IBFK_1 = Internal.createForeignKey(com.invillia.acme.jooq.Keys.KEY_PAYMENT_STATUS_PRIMARY, Payment.PAYMENT, "payment_ibfk_1", Payment.PAYMENT.ID_PAYMENT_STATUS);
     }
 }

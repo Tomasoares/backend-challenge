@@ -31,6 +31,8 @@ public class StoreServiceImpl implements StoreService {
 
 		rec.attach(this.jooq.configuration());
 		rec.store();
+		
+		store.setId(rec.getId());
 	}
 	
 	@Override

@@ -20,7 +20,7 @@ import com.invillia.acme.service.PaymentService;
 import static com.invillia.acme.resource.PaymentResource.ORDER_ID;
 
 @RestController
-@RequestMapping("orders/{" + ORDER_ID + "}/payments")
+@RequestMapping("/orders/{" + ORDER_ID + "}/payments")
 public class PaymentResource {
 	
 	@Autowired

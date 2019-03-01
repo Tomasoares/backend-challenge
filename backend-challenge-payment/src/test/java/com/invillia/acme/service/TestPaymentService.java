@@ -2,6 +2,7 @@ package com.invillia.acme.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 
 import java.util.Date;
 
@@ -31,10 +32,10 @@ public class TestPaymentService {
 	
 	@Test
 	public void testNewPayment() throws Exception {
-		Payment payment = new Payment("237468237", new Date(), PaymentStatus.PROCESSING, 1);
+		Payment payment = new Payment("237468237", new Date(), PaymentStatus.PROCESSING, any());
 		service.create(payment);
 		
-		assertNotNull("Inserted a payment with .create(payment) method", payment.getId());
+		assertNotNull("Insert a payment with .create(payment) method", payment.getId());
 	}
 	
 	@Test
@@ -42,8 +43,8 @@ public class TestPaymentService {
 		Payment payment = new Payment("65765787656", new Date(), PaymentStatus.REFUSED, 1);
 		service.create(payment);
 		
-		PaymentStatus paymentStatus = service.getPaymentStatus(payment.getId());
-		assertEquals("Looked up for paymentStatus with .getPaymentStatus(id) method", payment.getStatus(), paymentStatus);
+		PaymentStatus paymentStatus = service.getPaymentStatus(1);
+		assertEquals("Look up for paymentStatus with .getPaymentStatus(id) method", payment.getStatus(), paymentStatus);
 	}
 	
 	@Test
@@ -52,7 +53,7 @@ public class TestPaymentService {
 		service.create(payment);
 		
 		service.updatePaymentStatus(payment.getId(), PaymentStatus.CONCLUDED);
-		PaymentStatus paymentStatus = service.getPaymentStatus(payment.getId());
+		PaymentStatus paymentStatus = service.getPaymentStatus(1);
 		
 		assertEquals("update paymentStatus with .updatePaymentStatus(id, status) method", PaymentStatus.CONCLUDED, paymentStatus);
 	}

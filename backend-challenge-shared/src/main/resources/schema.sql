@@ -8,7 +8,7 @@ CREATE TABLE acme.store (
 CREATE TABLE acme.order_status (
 	id			INT PRIMARY KEY,
 	name		VARCHAR(50)
-)
+);
 
 CREATE TABLE acme.order (
 	id						INT AUTO_INCREMENT PRIMARY KEY,
@@ -18,7 +18,7 @@ CREATE TABLE acme.order (
 	id_store				INT,
 	FOREIGN KEY fk_order_order_status(id_order_status) references acme.order_status(id),
 	FOREIGN KEY fk_order_store(id_store) references acme.store(id)
-)
+);
 
 CREATE TABLE acme.order_item (
 	id						INT AUTO_INCREMENT PRIMARY KEY,
@@ -27,22 +27,23 @@ CREATE TABLE acme.order_item (
 	refunded 				BIT,
 	id_order				INT,
 	description 			VARCHAR(50),
-	FOREIGN KEY fk_order_item_order_item_status(id_order_item_status) references acme.order_item_status (id),
-	FOREIGN KEY fk_order_item_order(id_order) references acme.store (id)
-)
+	FOREIGN KEY fk_order_item_order(id_order) references acme.order (id)
+);
 
 CREATE TABLE acme.payment_status (
 	id			INT PRIMARY KEY,
 	name		VARCHAR(50)
-)
+);
 
 CREATE TABLE acme.payment (
 	id						INT AUTO_INCREMENT PRIMARY KEY,
 	credit_card				VARCHAR(50),
 	payment_date			DATETIME,
 	id_payment_status		INT,
-	FOREIGN KEY  fk_payment_payment_status (id_payment_status) references acme.payment (id)
-)
+	id_order						INT,
+	FOREIGN KEY  fk_payment_payment_status (id_payment_status) references acme.payment_status (id),
+	FOREIGN KEY  fk_payment_order (id_order) references acme.order (id)
+);
 
 insert into acme.payment_status values
 (1, "PROCESSING"),

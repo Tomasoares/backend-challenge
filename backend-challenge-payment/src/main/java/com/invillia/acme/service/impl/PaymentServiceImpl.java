@@ -40,7 +40,7 @@ public class PaymentServiceImpl implements PaymentService {
 				.from
 					(PAYMENT)
 				.where
-					(PAYMENT.ID.eq(orderId))
+					(PAYMENT.ID_ORDER.eq(orderId))
 				.orderBy
 					(PAYMENT.ID.desc())
 				.limit

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.invillia.acme.jooq.tables.records.OrderRecord;
 import com.invillia.acme.model.Order;
+import com.invillia.acme.model.OrderItem;
 import com.invillia.acme.model.OrderStatus;
 import com.invillia.acme.model.PaymentStatus;
 import com.invillia.acme.model.filters.OrderGetAllFilters;
@@ -47,12 +48,19 @@ public class OrderServiceImpl implements OrderService {
 			rec.setIdOrderStatus(order.getStatus().getId());
 		}
 		
-		rec.setIdStore(order.getId());
+		rec.setIdStore(order.getStoreId());
 		
 		rec.attach(this.jooq.configuration());
 		rec.store();
-		
+
 		order.setId(rec.getId());
+		
+		if (order.getOrderItems() != null) {
+			for (OrderItem item : order.getOrderItems()) {
+				this.orderItemService.create(item, order.getId());
+			}
+		}
+		
 	}
 
 	@Override
@@ -111,6 +119,7 @@ public class OrderServiceImpl implements OrderService {
 				order.setConfirmationDate(rec.getConfirmationDate());
 				order.setId(rec.getId());
 				order.setStatus(OrderStatus.findById(rec.getIdOrderStatus()));
+				order.setStoreId(rec.getIdStore());
 				
 				order.setOrderItems(this.orderItemService.getItems(order.getId()));
 				

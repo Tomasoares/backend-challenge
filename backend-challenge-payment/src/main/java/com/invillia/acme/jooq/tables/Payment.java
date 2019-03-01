@@ -42,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Payment extends TableImpl<PaymentRecord> {
 
-    private static final long serialVersionUID = 936761712;
+    private static final long serialVersionUID = -945674618;
 
     /**
      * The reference instance of <code>acme.payment</code>
@@ -76,6 +76,11 @@ public class Payment extends TableImpl<PaymentRecord> {
      * The column <code>acme.payment.id_payment_status</code>.
      */
     public final TableField<PaymentRecord, Integer> ID_PAYMENT_STATUS = createField("id_payment_status", org.jooq.impl.SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>acme.payment.id_order</code>.
+     */
+    public final TableField<PaymentRecord, Integer> ID_ORDER = createField("id_order", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * Create a <code>acme.payment</code> table reference
@@ -123,7 +128,7 @@ public class Payment extends TableImpl<PaymentRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.PAYMENT_FK_PAYMENT_PAYMENT_STATUS, Indexes.PAYMENT_PRIMARY);
+        return Arrays.<Index>asList(Indexes.PAYMENT_FK_PAYMENT_ORDER, Indexes.PAYMENT_FK_PAYMENT_PAYMENT_STATUS, Indexes.PAYMENT_PRIMARY);
     }
 
     /**
@@ -158,8 +163,8 @@ public class Payment extends TableImpl<PaymentRecord> {
         return Arrays.<ForeignKey<PaymentRecord, ?>>asList(Keys.PAYMENT_IBFK_1);
     }
 
-    public com.invillia.acme.jooq.tables.Payment payment() {
-        return new com.invillia.acme.jooq.tables.Payment(this, Keys.PAYMENT_IBFK_1);
+    public PaymentStatus paymentStatus() {
+        return new PaymentStatus(this, Keys.PAYMENT_IBFK_1);
     }
 
     /**

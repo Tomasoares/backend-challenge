@@ -31,6 +31,7 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
+    public static final Index PAYMENT_FK_PAYMENT_ORDER = Indexes0.PAYMENT_FK_PAYMENT_ORDER;
     public static final Index PAYMENT_FK_PAYMENT_PAYMENT_STATUS = Indexes0.PAYMENT_FK_PAYMENT_PAYMENT_STATUS;
     public static final Index PAYMENT_PRIMARY = Indexes0.PAYMENT_PRIMARY;
     public static final Index PAYMENT_STATUS_PRIMARY = Indexes0.PAYMENT_STATUS_PRIMARY;
@@ -40,6 +41,7 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     private static class Indexes0 {
+        public static Index PAYMENT_FK_PAYMENT_ORDER = Internal.createIndex("fk_payment_order", Payment.PAYMENT, new OrderField[] { Payment.PAYMENT.ID_ORDER }, false);
         public static Index PAYMENT_FK_PAYMENT_PAYMENT_STATUS = Internal.createIndex("fk_payment_payment_status", Payment.PAYMENT, new OrderField[] { Payment.PAYMENT.ID_PAYMENT_STATUS }, false);
         public static Index PAYMENT_PRIMARY = Internal.createIndex("PRIMARY", Payment.PAYMENT, new OrderField[] { Payment.PAYMENT.ID }, true);
         public static Index PAYMENT_STATUS_PRIMARY = Internal.createIndex("PRIMARY", PaymentStatus.PAYMENT_STATUS, new OrderField[] { PaymentStatus.PAYMENT_STATUS.ID }, true);

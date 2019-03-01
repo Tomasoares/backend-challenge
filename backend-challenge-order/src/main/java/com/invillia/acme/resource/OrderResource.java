@@ -26,7 +26,7 @@ import com.invillia.acme.service.OrderItemService;
 import com.invillia.acme.service.OrderService;
 
 @RestController
-@RequestMapping("/payment")
+@RequestMapping("/orders")
 public class OrderResource {
 	
 	@Autowired
@@ -96,7 +96,7 @@ public class OrderResource {
 		}
 	}
 	
-	@PutMapping("/{" + orderId + "}/orderItem/{"+ orderItemId +"}/refund")
+	@PutMapping("/{" + orderId + "}/orderItens/{"+ orderItemId +"}/refund")
 	public ResponseEntity<Object> refundOrderItem(@PathVariable(orderId) Integer orderId,
 												  @PathVariable(orderItemId) Integer orderItemId) {
 		try {
@@ -112,7 +112,7 @@ public class OrderResource {
 	}
 	
 	private PaymentStatus getPaymentStatus(Integer orderId) {
-		String url = "http://localhost:8082/orders/{" + orderId + "}/payments/status";
+		String url = "http://localhost:8083/orders/{" + orderId + "}/payments/status";
 		
 		ResponseEntity<PaymentStatus> response = restTemplate.getForEntity(url, PaymentStatus.class);
 		return response.getBody();
