@@ -1,6 +1,5 @@
 package com.invillia.acme.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -17,5 +16,7 @@ public interface OrderService {
 	void create(Order payment);
 
 	void refundOrder(int idOrder, PaymentStatus paymentStatus);
+
+	Order get(Integer orderId);
 
 }

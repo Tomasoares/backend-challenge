@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jooq.DSLContext;
-import org.jooq.Record;
 import org.jooq.Result;
 import org.jooq.SelectQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,14 +56,34 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> getAll(OrderGetAllFilters parameters) {
+	public Order get(Integer orderId) {
 		//@formatter:off
-		SelectQuery<Record> query = this.jooq.select
-			()
-		.from
+		OrderRecord rec = this.jooq.selectFrom
 			(ORDER)
-		.getQuery();
+		.where
+			(ORDER.ID.eq(orderId))
+		.fetchOne();
 		//@formatter:on
+		
+		if (rec != null) {
+			Order order = new Order();
+			order.setId(rec.getId());
+			order.setAddress(rec.getAddress());
+			order.setConfirmationDate(rec.getConfirmationDate());
+			order.setStatus(OrderStatus.findById(rec.getIdOrderStatus()));
+			order.setStoreId(rec.getIdStore());
+			order.setOrderItems(this.orderItemService.getItems(rec.getId()));
+			
+			return order;
+		}
+		
+		return null;
+	}
+
+	@Override
+	public List<Order> getAll(OrderGetAllFilters parameters) {
+		
+		SelectQuery<OrderRecord> query = this.jooq.selectFrom(ORDER).getQuery();
 		
 		if (parameters != null) {
 			if (StringUtils.isNotBlank(parameters.address)) {
@@ -80,7 +99,7 @@ public class OrderServiceImpl implements OrderService {
 			}
 		}
 		
-		Result<Record> fetch = query.fetch();
+		Result<OrderRecord> fetch = query.fetch();
 		
 		List<Order> orders = new ArrayList<>();
 		
@@ -88,10 +107,10 @@ public class OrderServiceImpl implements OrderService {
 			fetch.forEach(rec -> {
 				Order order = new Order();
 				
-				order.setAddress(rec.getValue(ORDER.ADDRESS));
-				order.setConfirmationDate(rec.getValue(ORDER.CONFIRMATION_DATE));
-				order.setId(rec.getValue(ORDER.ID));
-				order.setStatus(OrderStatus.findById(rec.getValue(ORDER.ID_ORDER_STATUS)));
+				order.setAddress(rec.getAddress());
+				order.setConfirmationDate(rec.getConfirmationDate());
+				order.setId(rec.getId());
+				order.setStatus(OrderStatus.findById(rec.getIdOrderStatus()));
 				
 				order.setOrderItems(this.orderItemService.getItems(order.getId()));
 				

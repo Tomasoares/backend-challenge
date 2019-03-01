@@ -54,8 +54,8 @@ public class StoreResource {
 	
 	@GetMapping
 	public ResponseEntity<StorePage> getAll(@RequestParam(required = false) String address, 
-							  @RequestParam(required = false) String code,
-							  @RequestParam(required = false) String name) {
+							  				@RequestParam(required = false) String code,
+							  				@RequestParam(required = false) String name) {
 		
 		StoreGetAllFilter parameters = new StoreGetAllFilter();
 		parameters.address = address;

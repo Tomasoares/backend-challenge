@@ -32,7 +32,7 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public PaymentStatus getPaymentStatus(int idPayment) {
+	public PaymentStatus getPaymentStatus(int orderId) {
 		//@formatter:off
 		Record1<Integer> rec = this.jooq
 				.select
@@ -40,7 +40,11 @@ public class PaymentServiceImpl implements PaymentService {
 				.from
 					(PAYMENT)
 				.where
-					(PAYMENT.ID.eq(idPayment))
+					(PAYMENT.ID.eq(orderId))
+				.orderBy
+					(PAYMENT.ID.desc())
+				.limit
+					(1)
 				.fetchOne();
 		//@formatter:on
 		

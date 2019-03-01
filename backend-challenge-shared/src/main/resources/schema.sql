@@ -50,3 +50,9 @@ insert into acme.payment_status values
 (3, "REFUSED"),
 (4, "CANCELLED");
 
+insert into acme.order_status values
+(1, "OPEN"),
+(2, "FINISHED"),
+(3, "CANCELLED"),
+(4, "REFUNDED");
+
