@@ -15,7 +15,7 @@ CREATE TABLE acme.order (
 	address					VARCHAR(50),
 	confirmation_date 		date,
 	id_order_status			INT,
-	id_store				INT,
+	id_store				INT NOT NULL,
 	FOREIGN KEY fk_order_order_status(id_order_status) references acme.order_status(id),
 	FOREIGN KEY fk_order_store(id_store) references acme.store(id)
 );
@@ -25,7 +25,7 @@ CREATE TABLE acme.order_item (
 	unitPrice				DECIMAL(10,2),
 	quantity				INT,
 	refunded 				BIT,
-	id_order				INT,
+	id_order				INT NOT NULL,
 	description 			VARCHAR(50),
 	FOREIGN KEY fk_order_item_order(id_order) references acme.order (id)
 );
@@ -40,14 +40,14 @@ CREATE TABLE acme.payment (
 	credit_card				VARCHAR(50),
 	payment_date			DATETIME,
 	id_payment_status		INT,
-	id_order						INT,
+	id_order				INT NOT NULL,
 	FOREIGN KEY  fk_payment_payment_status (id_payment_status) references acme.payment_status (id),
 	FOREIGN KEY  fk_payment_order (id_order) references acme.order (id)
 );
 
 insert into acme.payment_status values
 (1, "PROCESSING"),
-(2, "CONCLUDED"),
+(2, "PAID"),
 (3, "REFUSED"),
 (4, "CANCELLED");
 

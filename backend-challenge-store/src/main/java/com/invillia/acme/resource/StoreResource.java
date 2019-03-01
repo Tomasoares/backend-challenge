@@ -25,11 +25,9 @@ public class StoreResource {
 	
 	@Autowired
 	private StoreService service;
-	
-	private static final String storeCode = "storeCode";
 
-	@GetMapping("/{"+storeCode+"}")
-	public ResponseEntity<Store> findStore(@PathVariable(storeCode) String storeCode) {
+	@GetMapping("/storeCode")
+	public ResponseEntity<Store> findStore(@PathVariable("storeCode") String storeCode) {
 		Store find = this.service.find(storeCode);
 		
 		if (find == null) {
@@ -45,8 +43,8 @@ public class StoreResource {
 		return store;
 	}
 	
-	@PutMapping("/{"+storeCode+"}")
-	public Store update(@RequestBody Store store, @PathVariable(storeCode) String code) {
+	@PutMapping("/{storeCode}")
+	public Store update(@RequestBody Store store, @PathVariable("storeCode") String code) {
 		store.setCode(code);
 		this.service.update(store);
 		return store;

@@ -113,7 +113,8 @@ public class OrderItemServiceImpl implements OrderItemService {
 	private Integer getOrderIdFromItem(int itemId) {
 		//@formatter:off
 		return this.jooq
-			.select(ORDER_ITEM.ID_ORDER)
+		.select
+			(ORDER_ITEM.ID_ORDER)
 		.from
 			(ORDER_ITEM)
 		.where
@@ -143,7 +144,8 @@ public class OrderItemServiceImpl implements OrderItemService {
 		.set
 			(ORDER.ID_ORDER_STATUS, OrderStatus.REFUNDED.getId())
 		.where
-			(ORDER.ID.eq(idOrder));
+			(ORDER.ID.eq(idOrder))
+		.execute();
 	}
 
 }

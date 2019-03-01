@@ -8,10 +8,12 @@ import com.invillia.acme.model.PaymentStatus;
 @Service
 public interface PaymentService {
 	
-	public void updatePaymentStatus(int orderId, PaymentStatus status);
+	void updatePaymentStatus(int orderId, PaymentStatus status);
 
 	void create(Payment payment);
 
 	PaymentStatus getPaymentStatus(int orderId);
+
+	Payment find(Integer paymentId);
 
 }

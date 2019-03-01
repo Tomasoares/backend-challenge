@@ -1,7 +1,9 @@
 package com.invillia.acme.resource;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.ValidationException;
 
@@ -38,9 +40,6 @@ public class OrderResource {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	private static final String orderId = "orderId";
-	private static final String orderItemId = "orderItemId";
-	
 	@PostMapping
 	public ResponseEntity<Order> createPayment(@RequestBody Order order) {
 		if (order.getStoreId() == null) {
@@ -51,8 +50,8 @@ public class OrderResource {
 		return ResponseEntity.status(HttpStatus.OK).body(order);
 	}
 	
-	@GetMapping("/{" + orderId + "}")
-	public ResponseEntity<Order> get(@PathVariable(orderId) Integer orderId) {
+	@GetMapping("/{orderId}")
+	public ResponseEntity<Order> get(@PathVariable("orderId") Integer orderId) {
 		
 		Order result = this.service.get(orderId);
 		
@@ -82,8 +81,8 @@ public class OrderResource {
 		return ResponseEntity.status(HttpStatus.OK).body(new OrderPage(orders));
 	}
 	
-	@PutMapping("/{" + orderId + "}/refund")
-	public ResponseEntity<String> refundOrder(@PathVariable(orderId) Integer orderId) {
+	@PutMapping("/{orderId}/refund")
+	public ResponseEntity<String> refundOrder(@PathVariable("orderId") Integer orderId) {
 		try {
 			PaymentStatus paymentStatus = this.getPaymentStatus(orderId);
 			this.service.refundOrder(orderId, paymentStatus);
@@ -96,9 +95,9 @@ public class OrderResource {
 		}
 	}
 	
-	@PutMapping("/{" + orderId + "}/orderItens/{"+ orderItemId +"}/refund")
-	public ResponseEntity<Object> refundOrderItem(@PathVariable(orderId) Integer orderId,
-												  @PathVariable(orderItemId) Integer orderItemId) {
+	@PutMapping("/{orderId}/orderItens/{orderItemId}/refund")
+	public ResponseEntity<Object> refundOrderItem(@PathVariable("orderId") Integer orderId,
+												  @PathVariable("orderItemId") Integer orderItemId) {
 		try {
 			PaymentStatus paymentStatus = this.getPaymentStatus(orderId);
 			this.serviceItem.refundItem(orderItemId, paymentStatus);
@@ -112,9 +111,12 @@ public class OrderResource {
 	}
 	
 	private PaymentStatus getPaymentStatus(Integer orderId) {
-		String url = "http://localhost:8083/orders/{" + orderId + "}/payments/status";
+		String url = "http://acme-payment/orders/{orderId}/payments/status";
 		
-		ResponseEntity<PaymentStatus> response = restTemplate.getForEntity(url, PaymentStatus.class);
+		Map<String, Object> params = new HashMap<>();
+		params.put("orderId", orderId);
+		
+		ResponseEntity<PaymentStatus> response = restTemplate.getForEntity(url, PaymentStatus.class, params);
 		return response.getBody();
 	}
 	

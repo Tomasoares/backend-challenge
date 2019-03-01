@@ -52,10 +52,10 @@ public class TestPaymentService {
 		Payment payment = new Payment("84793248572", new Date(), PaymentStatus.REFUSED, 1);
 		service.create(payment);
 		
-		service.updatePaymentStatus(payment.getId(), PaymentStatus.CONCLUDED);
+		service.updatePaymentStatus(payment.getId(), PaymentStatus.PAID);
 		PaymentStatus paymentStatus = service.getPaymentStatus(1);
 		
-		assertEquals("update paymentStatus with .updatePaymentStatus(id, status) method", PaymentStatus.CONCLUDED, paymentStatus);
+		assertEquals("update paymentStatus with .updatePaymentStatus(id, status) method", PaymentStatus.PAID, paymentStatus);
 	}
 	
 }

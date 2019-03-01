@@ -23,7 +23,7 @@ public class RefundValidation {
 	public void validate() throws ValidationException {
 		Date orderDatePlus10Days = DateUtils.addDays(orderConfirmationDate, 10);
 		
-		if (paymentStatus != PaymentStatus.CONCLUDED) {
+		if (paymentStatus != PaymentStatus.PAID) {
 			throw new ValidationException("Payment needs to be concluded for refunding!");
 		}
 		

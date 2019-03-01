@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum PaymentStatus {
 
 	PROCESSING(1),
-	CONCLUDED(2),
+	PAID(2),
 	REFUSED(3),
 	CANCELLED(4);
 	

@@ -17,17 +17,12 @@ import com.invillia.acme.model.Payment;
 import com.invillia.acme.model.PaymentStatus;
 import com.invillia.acme.service.PaymentService;
 
-import static com.invillia.acme.resource.PaymentResource.ORDER_ID;
-
 @RestController
-@RequestMapping("/orders/{" + ORDER_ID + "}/payments")
+@RequestMapping("/orders/{orderId}/payments")
 public class PaymentResource {
 	
 	@Autowired
 	private PaymentService service;
-	
-	static final String PAYMENT_ID = "paymentId";
-	static final String ORDER_ID = "orderId";
 	
 	@PostMapping
 	public ResponseEntity<Payment> createPayment(@RequestBody Payment payment) {
@@ -39,14 +34,19 @@ public class PaymentResource {
 		return ResponseEntity.status(HttpStatus.OK).body(payment);
 	}
 	
-	@GetMapping("/{" + PAYMENT_ID + "}")
-	public ResponseEntity<Payment> getPayment(@PathParam(PAYMENT_ID) Integer paymentId) {
-		Payment payment = new Payment();
+	@GetMapping("/{paymentId}")
+	public ResponseEntity<Payment> getPayment(@PathParam("paymentId") Integer paymentId) {
+		if (paymentId == null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		}
+		
+		Payment payment = this.service.find(paymentId);
+		
 		return ResponseEntity.status(HttpStatus.OK).body(payment);
 	}
 	
 	@GetMapping("/status")
-	public ResponseEntity<PaymentStatus> getPaymentStatus(@PathVariable(ORDER_ID) Integer orderId) {
+	public ResponseEntity<PaymentStatus> getPaymentStatus(@PathVariable("orderId") Integer orderId) {
 		if (orderId == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
@@ -55,8 +55,8 @@ public class PaymentResource {
 		return ResponseEntity.status(HttpStatus.OK).body(paymentStatus);
 	}
 	
-	@PutMapping("/{" + PAYMENT_ID +"}/status")
-	public ResponseEntity<PaymentStatus> updatePaymentStatus(@PathVariable(PAYMENT_ID) Integer paymentId, @RequestBody PaymentStatus status) {
+	@PutMapping("/{paymentId}/status")
+	public ResponseEntity<PaymentStatus> updatePaymentStatus(@PathVariable("orderId") Integer paymentId, @RequestBody PaymentStatus status) {
 		if (paymentId == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}

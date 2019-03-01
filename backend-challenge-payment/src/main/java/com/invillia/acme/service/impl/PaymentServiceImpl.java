@@ -24,6 +24,7 @@ public class PaymentServiceImpl implements PaymentService {
 		rec.setCreditCard(payment.getCreditCard());
 		rec.setIdPaymentStatus(payment.getStatus().getId());
 		rec.setPaymentDate(new java.sql.Timestamp(payment.getPaymentDate().getTime()));
+		rec.setIdOrder(payment.getOrderId());
 		
 		rec.attach(this.jooq.configuration());
 		rec.store();
@@ -63,6 +64,24 @@ public class PaymentServiceImpl implements PaymentService {
 		.execute();
 		//@formatter:on
 		
+	}
+
+	@Override
+	public Payment find(Integer paymentId) {
+		PaymentRecord rec = this.jooq.selectFrom(PAYMENT).where(PAYMENT.ID.eq(paymentId)).fetchOne();
+		
+		if (rec != null) {
+			Payment payment = new Payment();
+			
+			payment.setId(rec.getId());
+			payment.setOrderId(rec.getIdOrder());
+			payment.setPaymentDate(rec.getPaymentDate());
+			payment.setStatus(PaymentStatus.findById(rec.getIdPaymentStatus()));
+			
+			return payment;
+		}
+		
+		return null;
 	}
 
 }
