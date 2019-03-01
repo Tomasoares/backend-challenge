@@ -1,0 +1,9 @@
+There are several things remained to be developed:
+
+-> The unit tests needs to be rewritten and many scenaries still needs to be covered.
+
+-> Integration with docker and Kubernets, so the development and deployment proccess can be smoother.
+
+-> AWS configuration: So the application can be deployed and accessed in production state.
+
+-> Security: The microservers needs to be secured with an authorization algorithm, with a login and password, so the resources are protected and not exposed to undesired sources.
