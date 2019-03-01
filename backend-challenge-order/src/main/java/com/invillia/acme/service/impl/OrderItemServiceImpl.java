@@ -37,6 +37,7 @@ public class OrderItemServiceImpl implements OrderItemService {
 		rec.setQuantity(item.getQuantity());
 		rec.setUnitprice(new BigDecimal(item.getUnitPrice()));
 		rec.setRefunded(Boolean.TRUE.equals(item.getRefunded()));
+		rec.setDescription(item.getDescription());
 		
 		rec.attach(this.jooq.configuration());
 		rec.store();

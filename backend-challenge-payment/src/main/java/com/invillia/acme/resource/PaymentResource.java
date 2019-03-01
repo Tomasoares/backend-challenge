@@ -1,7 +1,5 @@
 package com.invillia.acme.resource;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,17 +23,16 @@ public class PaymentResource {
 	private PaymentService service;
 	
 	@PostMapping
-	public ResponseEntity<Payment> createPayment(@RequestBody Payment payment) {
-		if (payment.getOrderId() == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-		}
+	public ResponseEntity<Payment> createPayment(@RequestBody Payment payment,
+												 @PathVariable("orderId") Integer orderId) {
+		payment.setOrderId(orderId);
 		
 		this.service.create(payment);
 		return ResponseEntity.status(HttpStatus.OK).body(payment);
 	}
 	
 	@GetMapping("/{paymentId}")
-	public ResponseEntity<Payment> getPayment(@PathParam("paymentId") Integer paymentId) {
+	public ResponseEntity<Payment> getPayment(@PathVariable("paymentId") Integer paymentId) {
 		if (paymentId == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
@@ -56,7 +53,7 @@ public class PaymentResource {
 	}
 	
 	@PutMapping("/{paymentId}/status")
-	public ResponseEntity<PaymentStatus> updatePaymentStatus(@PathVariable("orderId") Integer paymentId, @RequestBody PaymentStatus status) {
+	public ResponseEntity<PaymentStatus> updatePaymentStatus(@PathVariable("paymentId") Integer paymentId, @RequestBody PaymentStatus status) {
 		if (paymentId == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}

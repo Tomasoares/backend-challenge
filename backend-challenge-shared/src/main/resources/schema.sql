@@ -13,7 +13,7 @@ CREATE TABLE acme.order_status (
 CREATE TABLE acme.order (
 	id						INT AUTO_INCREMENT PRIMARY KEY,
 	address					VARCHAR(50),
-	confirmation_date 		date,
+	confirmation_date 		datetime,
 	id_order_status			INT,
 	id_store				INT NOT NULL,
 	FOREIGN KEY fk_order_order_status(id_order_status) references acme.order_status(id),

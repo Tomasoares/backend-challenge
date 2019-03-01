@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jooq.DSLContext;
 import org.jooq.Result;
 import org.jooq.SelectQuery;
+import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -99,7 +100,7 @@ public class OrderServiceImpl implements OrderService {
 			}
 			
 			if (parameters.confirmationDate != null) {
-				query.addConditions(ORDER.CONFIRMATION_DATE.eq(new java.sql.Date(parameters.confirmationDate.getTime())));
+				query.addConditions(DSL.date(ORDER.CONFIRMATION_DATE).eq(new java.sql.Date(parameters.confirmationDate.getTime())));
 			}
 			
 			if (parameters.idStore != null) {

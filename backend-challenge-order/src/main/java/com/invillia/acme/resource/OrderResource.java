@@ -1,12 +1,14 @@
 package com.invillia.acme.resource;
 
-import java.util.Date;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.validation.ValidationException;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +43,7 @@ public class OrderResource {
 	private RestTemplate restTemplate;
 	
 	@PostMapping
-	public ResponseEntity<Order> createPayment(@RequestBody Order order) {
+	public ResponseEntity<Order> create(@RequestBody Order order) {
 		if (order.getStoreId() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
@@ -63,13 +65,22 @@ public class OrderResource {
 	}
 	
 	@GetMapping
-	public ResponseEntity<OrderPage> getAll(@RequestParam(required = false) Date confirmationDate, 
+	public ResponseEntity<OrderPage> getAll(@RequestParam(required = false) String confirmationDate, 
 			  								@RequestParam(required = false) String address,
 			  								@RequestParam(required = false) Integer idStore) {
 		
 		OrderGetAllFilters parameters = new OrderGetAllFilters();
 		parameters.address = address;
-		parameters.confirmationDate = confirmationDate;
+		
+		if (StringUtils.isNotBlank(confirmationDate)) {
+			try {
+				parameters.confirmationDate = DateUtils.parseDateStrictly(confirmationDate, "yyyy-MM-dd");
+			} catch (ParseException e) {
+				e.printStackTrace();
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+			}
+		}
+		
 		parameters.idStore = idStore;
 		
 		List<Order> orders = this.service.getAll(parameters);

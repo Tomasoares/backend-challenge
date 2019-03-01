@@ -26,7 +26,7 @@ public class StoreResource {
 	@Autowired
 	private StoreService service;
 
-	@GetMapping("/storeCode")
+	@GetMapping("/{storeCode}")
 	public ResponseEntity<Store> findStore(@PathVariable("storeCode") String storeCode) {
 		Store find = this.service.find(storeCode);
 		

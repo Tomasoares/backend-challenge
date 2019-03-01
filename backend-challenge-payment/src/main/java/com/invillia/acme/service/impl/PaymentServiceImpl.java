@@ -77,6 +77,7 @@ public class PaymentServiceImpl implements PaymentService {
 			payment.setOrderId(rec.getIdOrder());
 			payment.setPaymentDate(rec.getPaymentDate());
 			payment.setStatus(PaymentStatus.findById(rec.getIdPaymentStatus()));
+			payment.setCreditCard(rec.getCreditCard());
 			
 			return payment;
 		}
